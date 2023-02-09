@@ -1,0 +1,12 @@
+1_ALGH
+Tornillos
+30
+2_ALGH
+Tuercas
+70
+3_ALGH
+Martillos
+10
+4_ALGH
+Destornilladores
+6
