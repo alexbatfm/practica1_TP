@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Almacen 
 {
     public static final int MAX_PRODUCTOS = 10000;
+    
     private Producto[] productos;
 
     Almacen()
@@ -56,7 +57,7 @@ public class Almacen
     {
         for(int n = 0; n < MAX_PRODUCTOS; n++)
         {
-            //if(productos[n].devuelveCodigo() == codigo)
+            if(productos[n].devuelveCodigo().equals(codigo))
             {
                 productos[n].modificarExistencias(cantidad);
                 return 0;

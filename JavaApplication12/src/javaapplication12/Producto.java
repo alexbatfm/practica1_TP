@@ -11,22 +11,23 @@ import java.util.Scanner;
  *
  * @author nicop
  */
-class Producto {
+class Producto 
+{
     private String codigo;
     private String nombre;
     private int existencias;
     
     Producto(Scanner fichero) 
     {
-        codigo = fichero.nextLine();
-        nombre = fichero.nextLine();
+        codigo = fichero.next();
+        nombre = fichero.next();
         existencias = fichero.nextInt();
         fichero.nextLine();
     }
     
     void guardar(PrintWriter pw)
     {
-        pw.println(codigo + "\n" + nombre + "\n" + existencias);
+        pw.println(codigo + " " + nombre + " " + existencias);
     }
     
     int modificarExistencias(int cantidad)
