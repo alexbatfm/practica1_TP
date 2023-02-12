@@ -1,6 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Versión 1.0
+ *
+ * Autores:
+ *  Álex Marqués Fernández (846108)
+ *  Nicolás Pascual Trallero (841142)
  */
 package javaapplication12;
 
@@ -11,32 +14,69 @@ import java.util.Scanner;
  *
  * @author nicop
  */
-class Producto 
-{
+class Producto {
+
     private String codigo;
     private String nombre;
     private int existencias;
-    
-    Producto(Scanner fichero) 
-    {
+
+    /**
+     * Constructor de la clase Producto
+     */
+    Producto(String codigo, String nombre, int existencias) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.existencias = existencias;
+    }
+
+    /**
+     * Constructor de la clase Producto a partir de un Scanner
+     */
+    Producto(Scanner fichero) {
         codigo = fichero.next();
         nombre = fichero.next();
         existencias = fichero.nextInt();
         fichero.nextLine();
     }
-    
-    void guardar(PrintWriter pw)
-    {
+
+    /**
+     * Guarda un producto escribiendolo en un PrintWriter
+     */
+    void guardar(PrintWriter pw) {
         pw.println(codigo + " " + nombre + " " + existencias);
     }
-    
-    int modificarExistencias(int cantidad)
-    {
-        return 0;
+
+    /**
+     * Modifica las existencias de un producto en base a un número
+     */
+    public boolean modificarExistencias(int num) {
+        if (num + existencias < 0) {
+            return false;
+        }
+
+        existencias = existencias + num;
+        return true;
     }
-    
-    String devuelveCodigo()
-    {
-        return codigo;
+
+    /**
+     * Devuelve la información del producto en formato de cadena de caracteres
+     */
+    @Override
+    public String toString() {
+        return this.codigo + " " + this.nombre + " " + this.existencias;
+    }
+
+    /**
+     * Devuelve el codigo del producto
+     */
+    String getCodigo() {
+        return this.codigo;
+    }
+
+    /**
+     * Devuelve las existencias del producto
+     */
+    int getExistencias() {
+        return this.existencias;
     }
 }
