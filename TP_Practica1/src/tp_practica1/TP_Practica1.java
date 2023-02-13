@@ -17,6 +17,7 @@ public class TP_Practica1 {
      */
     public static void main(String[] args) {
         Almacen a = new Almacen();
+        int codigoError = 0;
 
         try {
             a.leerProductos("productos.txt");
@@ -27,11 +28,11 @@ public class TP_Practica1 {
 
         try {
             a.nuevoAlbaran("a_01", "Manuel");
-            a.anadirProducto("1_ALGH", 20);
-            a.anadirProducto("2_ALGH", 3);
-            a.anadirProducto("2_ALGH", 4);
-            a.anadirProducto("3_ALGH", 3);
-            a.eliminarProducto("2_ALGH", 2);
+            a.anadirProductoAlbaran("1_ALGH", 20, codigoError);
+            a.anadirProductoAlbaran("2_ALGH", 3, codigoError);
+            a.anadirProductoAlbaran("2_ALGH", 4, codigoError);
+            a.anadirProductoAlbaran("3_ALGH", 3, codigoError);
+            a.eliminarProductoAlbaran("2_ALGH", 2, codigoError);
 
         } catch (Exception e) {
             System.out.println("Error en proceso intermedio");
@@ -39,7 +40,7 @@ public class TP_Practica1 {
         }
 
         try {
-            a.guardarProductos("CopiaProductos.txt");
+            a.escribirProductos("CopiaProductos.txt");
         } catch (Exception e) {
             System.out.println("Error al guardar los productos");
             e.printStackTrace();

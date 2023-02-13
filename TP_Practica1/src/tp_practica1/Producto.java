@@ -41,12 +41,12 @@ class Producto {
     /**
      * Guarda un producto escribiendolo en un PrintWriter
      */
-    void guardar(PrintWriter pw) {
+    void escribir(PrintWriter pw) {
         pw.println(codigo + " " + nombre + " " + existencias);
     }
 
     /**
-     * Modifica las existencias de un producto en base a un número
+     * Aumenta las existencias del producto en num (num puede ser negativo)
      */
     public boolean modificarExistencias(int num) {
         if (num + existencias < 0) {
@@ -56,15 +56,19 @@ class Producto {
         existencias = existencias + num;
         return true;
     }
-    
-    public Producto coger(int existencias){
-        if (this.existencias - existencias < 0){
-            return null;
-        } else {
-            return new Producto(this.codigo, this.nombre, this.existencias - existencias);
+
+    /**
+     * Modifica las existencias a existencias - cantidad y devuelve un
+     * producto equivalente con tal cantidad de existencias
+     */
+    public boolean obtenerExistencias(Producto p, int cantidad) {
+        if (this.modificarExistencias(-cantidad)) {
+            p = new Producto(this.codigo, this.nombre, this.existencias);
+            return true;
         }
+        return false;
     }
-    
+
     /**
      * Devuelve la información del producto en formato de cadena de caracteres
      */
