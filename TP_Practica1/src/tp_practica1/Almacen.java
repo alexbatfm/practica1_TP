@@ -7,7 +7,10 @@
  */
 package tp_practica1;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -18,43 +21,84 @@ public class Almacen {
     public static final int MAX_PRODUCTOS = 10000;
 
     private Producto[] productos;
+    private Albaran albaran;
 
     /**
      * Constructor de la clase Almacen
      */
     Almacen() {
-        this.productos = new Producto[MAX_PRODUCTOS];
+        productos = new Producto[MAX_PRODUCTOS];
     }
 
     /**
-     * Añade los productos almacenados en un fichero a el Almacén
-     *
-     * @param rutaCompletaFichero -> Ubicación del fichero a leer
-     * @return -> 0 => Éxito && not 0 => Error
+     * Lee los productos de un fichero en la ruta nombreFichero
      */
-    public int leerProductos(String rutaCompletaFichero) {
-        return 0;
+    void leerProductos(String nombreFichero) throws Exception {
+        int n = 0;
+        Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
+
+        if (n != MAX_PRODUCTOS) {
+            while (fichero.hasNext()) {
+                productos[n++] = new Producto(fichero);
+            }
+        }
+        fichero.close();
     }
 
     /**
-     * Guarda los cambios en los productos en un fichero
-     *
-     * @param ruta -> Ubicación del fichero a modificar
-     * @return -> 0 => Éxito && not 0 => Error
+     * Guarda los productos en un fichero en la ruta nombreFichero
      */
-    public int escribirProductos(String ruta) {
-        return 0;
+    void guardarProductos(String nombreFichero) throws Exception {
+        PrintWriter fichero = new PrintWriter(new BufferedWriter(new FileWriter(nombreFichero)));
+        for (int n = 0; n < MAX_PRODUCTOS; n++) {
+            if (productos[n] != null) {
+                productos[n].guardar(fichero);
+            }
+        }
+        fichero.close();
     }
 
     /**
-     * Modifica las existencias (si es posible) del producto con el código
-     * dado con la cantidad dada
-     *
-     * @param codigo -> Codigo asociado al producto a modificar
-     * @param cantidad -> Cantidad por la que se modificará el producto
-     * @return -> 0 => Éxito && not 0 => Error
+     * Crea el albaran para anotar los movimientos del almacen
      */
-    public int modificarExistencias(int codigo, int cantidad) {
-        return 0;
+    public void nuevoAlbaran(String codigo, String cliente) {
+        this.albaran = new Albaran(codigo, cliente);
+    }
+    
+    /**
+     * Genera el albaran del almacen
+     */
+    public void generarAlbaran() throws Exception {
+        this.albaran.generar();
+    }
+
+    /**
+     * POR IMPLEMENTAR Añade un producto al albaran
+     */
+    public boolean anadirProducto(String codigo, int cantidad) {
+        return true;
+    }
+
+    /**
+     * POR IMPLEMENTAR Elimina un producto del albaran
+     */
+    public boolean eliminarProducto(String codigo, int cantidad) {
+        return true;
+    }
+
+    /**
+     * PENDIENTE DE REVISAR
+     */
+    boolean modificarExistencias(int cantidad, String codigo) {
+        for (int n = 0; n < MAX_PRODUCTOS; n++) {
+            if (productos[n].getCodigo().equals(codigo)) {
+                if (productos[n].modificarExistencias(cantidad)){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -7,10 +7,13 @@
  */
 package tp_practica1;
 
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 /**
- * Clase Producto
+ * Clase producto
  */
-public class Producto {
+class Producto {
 
     private String codigo;
     private String nombre;
@@ -18,33 +21,32 @@ public class Producto {
 
     /**
      * Constructor de la clase Producto
-     *
-     * @param codigo
-     * @param nombre
-     * @param existencias
      */
     Producto(String codigo, String nombre, int existencias) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.existencias = existencias;
     }
-    
+
     /**
-     * Compara el producto llamador con el producto p
-     * @param p -> el producto con el que se compara el producto llamador
-     * @return -> TRUE en caso de que coincida el codigo 
-     *            FALSE en caso contrario
+     * Constructor de la clase Producto a partir de un Scanner
      */
-    public boolean esIgual(Producto p){
-        return this.codigo == p.codigo;
+    Producto(Scanner fichero) {
+        codigo = fichero.next();
+        nombre = fichero.next();
+        existencias = fichero.nextInt();
+        fichero.nextLine();
+    }
+
+    /**
+     * Guarda un producto escribiendolo en un PrintWriter
+     */
+    void guardar(PrintWriter pw) {
+        pw.println(codigo + " " + nombre + " " + existencias);
     }
 
     /**
      * Modifica las existencias de un producto en base a un número
-     *
-     * @param num -> Simboliza el número de unidades a retirar/añadir.
-     * @return -> FALSE si la operacion hace que las existencias sean
-     * negativas TRUE en caso contrario
      */
     public boolean modificarExistencias(int num) {
         if (num + existencias < 0) {
@@ -55,29 +57,33 @@ public class Producto {
         return true;
     }
     
-    /**
-     * Modifica las existencias del producto llamador con el numero de 
-     * existencias del producto pasado por parametro
-     * @param p -> Producto del que obtener las existencias
-     * @return -> TRUE en caso de éxito
-     *            FALSE en caso de que no this.esIgual(p) ó no se puedan 
-     *            modificar las existencias;
-     */
-    public boolean modificarExistencias(Producto p){
-        if (this.esIgual(p)){
-            if (modificarExistencias(p.existencias)){
-                return true;
-            }
-            return false;
+    public Producto coger(int existencias){
+        if (this.existencias - existencias < 0){
+            return null;
+        } else {
+            return new Producto(this.codigo, this.nombre, this.existencias - existencias);
         }
-        return false;
     }
-
+    
     /**
      * Devuelve la información del producto en formato de cadena de caracteres
      */
     @Override
     public String toString() {
         return this.codigo + " " + this.nombre + " " + this.existencias;
+    }
+
+    /**
+     * Devuelve el codigo del producto
+     */
+    String getCodigo() {
+        return this.codigo;
+    }
+
+    /**
+     * Devuelve las existencias del producto
+     */
+    int getExistencias() {
+        return this.existencias;
     }
 }

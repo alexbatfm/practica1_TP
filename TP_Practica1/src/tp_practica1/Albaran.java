@@ -7,63 +7,100 @@
  */
 package tp_practica1;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Clase Albarán
+ * Clase albaran
  */
 public class Albaran {
 
     public static final int MAX_PRODUCTOS = 100;
 
-    private int codigo;
+    private String codigo;
     private Producto[] productos;
     private String cliente;
-    private Date fecha;
+    private Date date = new Date();
+    private SimpleDateFormat fecha;
+    private final String patron = "E, dd MM yyyy h:mm";
 
     /**
-     * Constructor para la clase Albarán
-     *
-     * @param codigo
-     * @param cliente
+     * Constructor de la clase albaran
      */
-    Albaran(int codigo, String cliente) {
+    Albaran(String codigo, String cliente) {
         this.codigo = codigo;
         this.productos = new Producto[MAX_PRODUCTOS];
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             productos[i] = null;
         }
         this.cliente = cliente;
-        this.fecha = new Date();
+        fecha = new SimpleDateFormat(patron);
     }
 
     /**
-     * Añade un producto (si es posible) a la lista de productos de un albarán
-     *
-     * @param p -> Producto a añadir
-     * @return -> FALSE en caso de error
-     *            TRUE en caso de éxito
+     * Genera el albrarán con el nombre del mismo
      */
-    public boolean anadirProducto(Producto p) {
+    public void generar() throws Exception {
+        PrintWriter fichero = new PrintWriter(new BufferedWriter(new FileWriter(codigo + ".txt")));
+
+        fichero.println("Numero de Albaran: " + codigo
+                + "                       Cliente: " + cliente);
+
+        for (int n = 0; n < MAX_PRODUCTOS; n++) {
+            if (productos[n] != null) {
+                productos[n].guardar(fichero);
+            }
+        }
+
+        fichero.println("\n" + "Fecha: " + fecha.format(date));
+
+        fichero.close();
+    }
+
+    /**
+     * Añade un producto al albarán
+     */
+    public boolean anadirProducto(String codigo, String nombre, int cantidad) {
+        //Buscamos a ver si el producto existe ya
+        for (int i = 0; i < MAX_PRODUCTOS; i++) {
+            if (productos[i] != null) {
+                if (productos[i].getCodigo() == codigo) {
+                    productos[i].modificarExistencias(cantidad);
+                    return true;
+                }
+            }
+        }
+
+        //En caso de que no estuviera, se añade en el primero 
+        for (int i = 0; i < MAX_PRODUCTOS; i++) {
+            if (productos[i] == null) {
+                productos[i] = new Producto(codigo, nombre, cantidad);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Elimina un producto del albarán
+     */
+    public boolean eliminarProducto(String codigo, int cantidad) {
+        boolean error;
+        for (int i = 0; i < MAX_PRODUCTOS; i++) {
+            if (productos[i] != null && productos[i].getCodigo() == codigo) {
+                error = productos[i].modificarExistencias(0 - cantidad);
+                if (!error) {
+                    return false;
+                }
+                if (productos[i].getExistencias() == 0) {
+                    productos[i] = null;
+                }
+            }
+        }
         return true;
     }
-
-    /**
-     * Elimina existencias (si es posible) a los productos de un albarán
-     *
-     * @param codigo -> Codigo del producto a eliminar
-     * @param cantidad -> Numero de existencias a eliminar de dicho producto
-     * @return -> 0 => Éxito && not 0 => Error
-     */
-    public int eliminarProducto(int codigo, int cantidad) {
-        return 0;
-    }
-
-    /**
-     * Genera un fichero con la información del albarán en la ubicacion:
-     * ./albaranes/al_[codigo].txt
-     */
-    public void generar() {
-    }
-
 }
