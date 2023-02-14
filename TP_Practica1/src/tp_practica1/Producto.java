@@ -48,12 +48,12 @@ class Producto {
     /**
      * Aumenta las existencias del producto en num (num puede ser negativo)
      */
-    public boolean modificarExistencias(int num) {
-        if (num + existencias < 0) {
+    public boolean modificarExistencias(int cantidad) {
+        if (cantidad + existencias < 0) {
             return false;
         }
 
-        existencias = existencias + num;
+        existencias = existencias + cantidad;
         return true;
     }
 

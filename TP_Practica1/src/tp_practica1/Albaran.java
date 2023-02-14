@@ -61,53 +61,32 @@ public class Albaran {
     }
 
     /**
-     * Añade un producto al albarán
+     * Añade un producto al albarán Devuelve true en caso de que quepa el
+     * producto en el albarán y false en caso contrario.
      */
-    public boolean anadirProducto(Producto p) {
-        //Buscamos a ver si el producto existe ya
-        for (int i = 0; i < MAX_PRODUCTOS; i++) {
-            if (productos[i] != null) {
-                if (productos[i].getCodigo() == codigo) {
-                    productos[i].modificarExistencias(p.getExistencias());
-                    return true;
-                }
-            }
-        }
-
-        //En caso de que no estuviera, se añade en el primer hueco disponible 
+    public boolean insertarProducto(Producto p) {
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] == null) {
                 productos[i] = p;
                 return true;
             }
         }
-
-        // Ni estaba en la lista ya, ni había sitio
         return false;
     }
 
     /**
-     * Elimina un producto del albarán return null <=> codigoError: 1 =>
-     * PROUCTO NO ENCONTRADO 2 => EXISTENCIAS INSUFICIENTES
+     * Elimina un producto del albarán Devuelve true en caso de éxito y false
+     * en caso de no encontrar el producto
      */
-    public Producto eliminarProducto(String codigo, int existencias, int codigoError) {
-        Producto aux = null;
+    public boolean eliminarProducto(String codigo) {
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
-            if (productos[i] != null && productos[i].getCodigo() == codigo) {
-                if (productos[i].obtenerExistencias(aux, existencias)) {
-                    if (productos[i].getExistencias() == 0) {
-                        productos[i] = null;
-                    }
-                    return aux;
-                } else {
-                    codigoError = 2;
-                    return null;
+            if (productos[i] != null){
+                if (productos[i].getCodigo().equals(codigo)){
+                    productos[i] = null;
+                    return true;                    
                 }
             }
         }
-
-        //No se ha encontrado el producto a eliminar
-        codigoError = 1;
-        return null;
+        return false;
     }
 }

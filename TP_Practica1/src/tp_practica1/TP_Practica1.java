@@ -28,11 +28,11 @@ public class TP_Practica1 {
 
         try {
             a.nuevoAlbaran("a_01", "Manuel");
-            a.anadirProductoAlbaran("1_ALGH", 20, codigoError);
-            a.anadirProductoAlbaran("2_ALGH", 3, codigoError);
-            a.anadirProductoAlbaran("2_ALGH", 4, codigoError);
-            a.anadirProductoAlbaran("3_ALGH", 3, codigoError);
-            a.eliminarProductoAlbaran("2_ALGH", 2, codigoError);
+            a.insertarProductoAlbaran("1_ALGH", 20);
+            a.insertarProductoAlbaran("2_ALGH", 3);
+            a.insertarProductoAlbaran("2_ALGH", 4);
+            a.insertarProductoAlbaran("3_ALGH", 3);
+            a.eliminarProductoAlbaran("2_ALGH", 2);
 
         } catch (Exception e) {
             System.out.println("Error en proceso intermedio");
