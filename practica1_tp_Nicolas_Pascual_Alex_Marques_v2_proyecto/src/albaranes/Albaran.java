@@ -5,7 +5,7 @@
  *  Álex Marqués Fernández (846108) responsable de calidad
  *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
-package tp_practica1;
+package albaranes;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,23 +13,21 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.SimpleTimeZone;
 /**
  * Clase albaran
  */
 public class Albaran {
 
     public static final int MAX_PRODUCTOS = 10;
-    public static final String EXTENSION_FICHERO = ".txt";
+    public static final String EXTENSION_FICHERO = ".txt"; 
 
     private String codigo;
     private Producto[] productos;
     private String cliente;
-    private Calendar calendar = GregorianCalendar.getInstance();
+     private Calendar calendar = GregorianCalendar.getInstance();
     private SimpleDateFormat formatoFecha = 
             new SimpleDateFormat("dd/MMMMM/yyyy hh:mm:ss");
     private String fecha;
-
 
     /**
      * Constructor de la clase albaran

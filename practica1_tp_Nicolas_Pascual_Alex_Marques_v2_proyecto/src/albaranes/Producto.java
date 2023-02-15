@@ -5,7 +5,7 @@
  *  Álex Marqués Fernández (846108) responsable de calidad
  *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
-package tp_practica1;
+package albaranes;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -31,13 +31,15 @@ class Producto {
     /**
      * Constructor de la clase Producto a partir de un Scanner
      */
-    Producto(Scanner fichero) throws Exception {
+    Producto(Scanner fichero){
         try{
-        codigo = fichero.next();
-        nombre = fichero.next();
-        existencias = fichero.nextInt();
+            codigo = fichero.next();
+            nombre = fichero.next();
+            existencias = fichero.nextInt();
         }catch(Exception e){
-            throw new Exception("Error en la lectura del producto");
+            System.err.println("Codigo encontrado: " + codigo + "\n" +
+                               "Nombre encontrado: " + nombre + "\n" + 
+                               "Existencias encontradas: " + existencias);
         }
     }
 

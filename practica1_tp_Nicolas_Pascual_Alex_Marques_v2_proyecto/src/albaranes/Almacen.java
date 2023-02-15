@@ -5,7 +5,7 @@
  *  Álex Marqués Fernández (846108) responsable de calidad
  *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
-package tp_practica1;
+package albaranes;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -25,7 +25,7 @@ public class Almacen {
     public static final int NO_SITIO_ALBARAN = -3;
     public static final int ERROR_MODIFICAR_EXISTENCIAS = -2;
     public static final int ERROR_FATAL = -3;
-
+    
     private Producto[] productos;
     private Albaran albaran;
 
@@ -43,22 +43,21 @@ public class Almacen {
         int n = 0;
         if(nombreFichero != null)
         {
-            Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
-
+            Scanner fichero = new Scanner
+                                (new FileInputStream(nombreFichero));
             try {
                 while (fichero.hasNext() && n < MAX_PRODUCTOS){
-                    productos[n] = new Producto(fichero);
-                    n++;
+                    productos[n++] = new Producto(fichero);
                 }
             } catch (Exception e) {
-                System.err.println("Error al leer el producto " + n);
+                System.err.println("Error al leer el producto " + (n + 1));
             }
             fichero.close();
         }else{
             System.err.println("No se ha proporcionado un fichero");
         }
     }
-
+    
     /**
      * Guarda los productos en un fichero en la ruta nombreFichero
      */
@@ -103,6 +102,7 @@ public class Almacen {
      * Añade una producto del almacén al albarán.
      */
     public int insertarProductoAlbaran(String codigo) {
+        int error = 0;
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] != null) {
                 if (productos[i].getCodigo().equals(codigo)) {
@@ -123,7 +123,7 @@ public class Almacen {
     }
 
     /**
-     * Añade un producto del albarán al almacén.
+     * Añade un producto del albarán al almacén
      */
     public int eliminarProductoAlbaran(String codigo) {
         if (albaran.eliminarProducto(codigo)) {

@@ -5,12 +5,12 @@
  *  Álex Marqués Fernández (846108) responsable de calidad
  *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
-package tp_practica1;
+package albaranes;
 
 /**
- * Clase de test de la práctica 1
+ * Clase de test
  */
-public class TP_Practica1 {
+public class Test {
 
     /**
      * @param args the command line arguments
@@ -29,36 +29,48 @@ public class TP_Practica1 {
 
         try {
             almacen.nuevoAlbaran("a_01", "Manuel");
-            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
+            if(almacen.insertarProductoAlbaran("2_ALGH") < 0){
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.insertarProductoAlbaran("3_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if (almacen.eliminarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
+            if (almacen.insertarProductoAlbaran("3_ALGH") != Almacen.EXITO)
+            {
                 System.err.println("Error al introducir "
+                        + "producto al albaran");
+            }
+            if (almacen.eliminarProductoAlbaran("2_ALGH") != Almacen.EXITO)
+            {
+                System.err.println("Error al introducir " 
                         + "producto al albaran");
             }
         } catch (Exception e) {
@@ -66,7 +78,7 @@ public class TP_Practica1 {
                     + "al crear un albaran");
             e.printStackTrace();
         }
-
+        
         try {
             almacen.nuevoAlbaran("a_02", "Francisco");
         } catch (Exception e) {
@@ -74,7 +86,7 @@ public class TP_Practica1 {
                     + "al crear un albaran");
             e.printStackTrace();
         }
-
+        
         try {
             almacen.generarAlbaran();
         } catch (Exception e) {
@@ -82,7 +94,7 @@ public class TP_Practica1 {
                     + "al generar el albaran");
             e.printStackTrace();
         }
-
+        
         try {
             almacen.nuevoAlbaran("a_03", "Pepe");
         } catch (Exception e) {
@@ -90,7 +102,7 @@ public class TP_Practica1 {
                     + "al crear un albaran");
             e.printStackTrace();
         }
-
+        
         try {
             almacen.generarAlbaran();
         } catch (Exception e) {
@@ -98,7 +110,7 @@ public class TP_Practica1 {
                     + "al generar el albaran");
             e.printStackTrace();
         }
-
+        
         try {
             almacen.escribirProductos("CopiaProductos.txt");
         } catch (Exception e) {
