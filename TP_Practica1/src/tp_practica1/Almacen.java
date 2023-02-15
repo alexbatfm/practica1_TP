@@ -41,14 +41,22 @@ public class Almacen {
      */
     void leerProductos(String nombreFichero) throws Exception {
         int n = 0;
-        Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
+        if(nombreFichero != null)
+        {
+            Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
 
-        while (fichero.hasNext() && n < MAX_PRODUCTOS){
-            productos[n] = new Producto(fichero);
-            n++;
+            try {
+                while (fichero.hasNext() && n < MAX_PRODUCTOS){
+                    productos[n] = new Producto(fichero);
+                    n++;
+                }
+            } catch (Exception e) {
+                System.err.println("Error al leer el producto " + n);
+            }
+            fichero.close();
+        }else{
+            System.err.println("No se ha proporcionado un fichero");
         }
-        
-        fichero.close();
     }
 
     /**

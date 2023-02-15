@@ -48,7 +48,7 @@ public class Albaran {
      */
     public void generar() throws Exception {
         PrintWriter fichero = new PrintWriter(new BufferedWriter
-                    (new FileWriter(codigo + ".txt")));
+                    (new FileWriter(codigo + EXTENSION_FICHERO)));
 
         fichero.println("Numero de Albaran: " + codigo
                 + "                       Cliente: " + cliente
@@ -68,10 +68,10 @@ public class Albaran {
      * Añade un producto al albarán Devuelve true en caso de que quepa el
      * producto en el albarán y false en caso contrario.
      */
-    public boolean insertarProducto(Producto p) {
+    public boolean insertarProducto(Producto producto) {
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] == null) {
-                productos[i] = p;
+                productos[i] = producto;
                 return true;
             }
         }

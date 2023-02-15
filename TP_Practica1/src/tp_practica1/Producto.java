@@ -31,14 +31,14 @@ class Producto {
     /**
      * Constructor de la clase Producto a partir de un Scanner
      */
-    Producto(Scanner fichero) {
-        if(fichero == null)
-        {
-            System.err.println("No se ha proporcionado un fichero");
-        }
+    Producto(Scanner fichero) throws Exception {
+        try{
         codigo = fichero.next();
         nombre = fichero.next();
         existencias = fichero.nextInt();
+        }catch(Exception e){
+            throw new Exception("Error en la lectura del producto");
+        }
     }
 
     /**
