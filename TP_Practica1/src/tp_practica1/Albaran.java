@@ -20,6 +20,7 @@ import java.util.SimpleTimeZone;
 public class Albaran {
 
     public static final int MAX_PRODUCTOS = 10;
+    public static final String EXTENSION_FICHERO = ".txt";
 
     private String codigo;
     private Producto[] productos;
