@@ -2,8 +2,8 @@
  * Versión 1.0
  *
  * Autores:
- *  Álex Marqués Fernández (846108)
- *  Nicolás Pascual Trallero (841142)
+ *  Álex Marqués Fernández (846108) responsable de calidad
+ *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
 package tp_practica1;
 
@@ -44,18 +44,19 @@ public class Albaran {
      * Genera el albrarán con el nombre del mismo
      */
     public void generar() throws Exception {
-        PrintWriter fichero = new PrintWriter(new BufferedWriter(new FileWriter(codigo + ".txt")));
+        PrintWriter fichero = new PrintWriter(new BufferedWriter
+                    (new FileWriter(codigo + ".txt")));
 
         fichero.println("Numero de Albaran: " + codigo
-                + "                       Cliente: " + cliente);
+                + "                       Cliente: " + cliente
+                + "                       Fecha: " + fecha.format(date));
 
         for (int n = 0; n < MAX_PRODUCTOS; n++) {
             if (productos[n] != null) {
-                productos[n].escribir(fichero);
+                fichero.println(productos[n].toString());
             }
         }
 
-        fichero.println("\n" + "Fecha: " + fecha.format(date));
 
         fichero.close();
     }
@@ -75,7 +76,8 @@ public class Albaran {
     }
 
     /**
-     * Elimina un producto del albarán Devuelve true en caso de éxito y false
+     * Elimina un producto del albarán 
+     * Devuelve true en caso de éxito y false 
      * en caso de no encontrar el producto
      */
     public boolean eliminarProducto(String codigo) {

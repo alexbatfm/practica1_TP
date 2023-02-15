@@ -2,8 +2,8 @@
  * Versión 1.0
  *
  * Autores:
- *  Álex Marqués Fernández (846108)
- *  Nicolás Pascual Trallero (841142)
+ *  Álex Marqués Fernández (846108) responsable de calidad
+ *  Nicolás Pascual Trallero (841142) responsable de funcionalidad
  */
 package tp_practica1;
 
@@ -49,7 +49,8 @@ public class Almacen {
      * Guarda los productos en un fichero en la ruta nombreFichero
      */
     void escribirProductos(String nombreFichero) throws Exception {
-        PrintWriter fichero = new PrintWriter(new BufferedWriter(new FileWriter(nombreFichero)));
+        PrintWriter fichero = new PrintWriter
+            (new BufferedWriter(new FileWriter(nombreFichero)));
         for (int n = 0; n < MAX_PRODUCTOS; n++) {
             if (productos[n] != null) {
                 productos[n].escribir(fichero);
@@ -60,27 +61,41 @@ public class Almacen {
 
     /**
      * Crea el albaran para anotar los movimientos del almacen
+     * En caso de éxito devuelve 0. En caso de error devuelve -1
      */
-    public void nuevoAlbaran(String codigo, String cliente) {
+    public int nuevoAlbaran(String codigo, String cliente) {
+        if(albaran != null)
+        {
+            return -1;
+        }
         this.albaran = new Albaran(codigo, cliente);
+        return 0;
     }
 
     /**
      * Genera el albaran del almacen
+     * En caso de éxito devuelve 0. En caso de error devuelve -1
      */
-    public void generarAlbaran() throws Exception {
+    public int generarAlbaran() throws Exception {
+        if(albaran == null)
+        {
+            return -1;
+        }
+        
         this.albaran.generar();
+        albaran = null;
+        return 0;
     }
 
     /**
-     * Añade una cantidad (existencias) del producto con el código "codigo"
+     * Añade una unidad del producto con el código "codigo"
      * del almacén al albarán
      *
-     * En caso de éxito devuelve 0 En caso de error (return false) devuelve (
-     * -1 => PRODUCTO NO ENCONTRADO, -2 => EXISTENCIAS INSUFICIENTES, -3 => NO
-     * SITIO ALBARAN
+     * En caso de éxito devuelve 0 En caso de error devuelve
+     * -1 => PRODUCTO NO ENCONTRADO, -2 => EXISTENCIAS INSUFICIENTES, 
+     * -3 => NO SITIO ALBARAN
      */
-    public int insertarProductoAlbaran(String codigo, int existencias) {
+    public int insertarProductoAlbaran(String codigo) {
         int error = 0;
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] != null) {
@@ -102,14 +117,14 @@ public class Almacen {
     }
 
     /**
-     * Añade una cantidad (existencias) del producto con el código "codigo"
-     * del albraán al almacén
+     * Añade un producto con el código "codigo" del albrán al almacén
      *
-     * En caso de éxito devuelve 0. En caso de error devuelve ( -1 => PRODUCTO
-     * NO ENCONTRADO, -2 => ERROR AL MODIFICAR EXISTENCIAS, -3 => ERROR FATAL
-     * (PRODUCTO ANOTADO EN EL ALBARÁN QUE NO CONSTA EN EL ALMACÉN
+     * En caso de éxito devuelve 0. En caso de error devuelve
+     * -1 => PRODUCTO NO ENCONTRADO, -2 => ERROR AL MODIFICAR EXISTENCIAS, 
+     * -3 => ERROR FATAL (PRODUCTO ANOTADO EN EL ALBARÁN 
+     *                    QUE NO CONSTA EN EL ALMACÉN)
      */
-    public int eliminarProductoAlbaran(String codigo, int existencias) {
+    public int eliminarProductoAlbaran(String codigo) {
         if (albaran.eliminarProducto(codigo)) {
             for (int i = 0; i < MAX_PRODUCTOS; i++) {
                 if (productos[i] != null) {
