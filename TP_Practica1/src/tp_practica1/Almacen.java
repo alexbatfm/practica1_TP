@@ -18,7 +18,13 @@ import java.util.Scanner;
  */
 public class Almacen {
 
-    public static final int MAX_PRODUCTOS = 10000;
+    public static final int MAX_PRODUCTOS = 20;
+    public static final int EXITO = 0;
+    public static final int PRODUCTO_NO_ENCONTRADO = -1;
+    public static final int EXISTENCIAS_INSUFICIENTES = -2;
+    public static final int NO_SITIO_ALBARAN = -3;
+    public static final int ERROR_MODIFICAR_EXISTENCIAS = -2;
+    public static final int ERROR_FATAL = -3;
 
     private Producto[] productos;
     private Albaran albaran;
@@ -37,11 +43,11 @@ public class Almacen {
         int n = 0;
         Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
 
-        if (n != MAX_PRODUCTOS) {
-            while (fichero.hasNext()) {
-                productos[n++] = new Producto(fichero);
-            }
+        while (fichero.hasNext() && n < MAX_PRODUCTOS){
+            productos[n] = new Producto(fichero);
+            n++;
         }
+        
         fichero.close();
     }
 
@@ -61,68 +67,55 @@ public class Almacen {
 
     /**
      * Crea el albaran para anotar los movimientos del almacen
-     * En caso de éxito devuelve 0. En caso de error devuelve -1
      */
-    public int nuevoAlbaran(String codigo, String cliente) {
+    public boolean nuevoAlbaran(String codigo, String cliente) {
         if(albaran != null)
         {
-            return -1;
+            return false;
         }
         this.albaran = new Albaran(codigo, cliente);
-        return 0;
+        return true;
     }
 
     /**
      * Genera el albaran del almacen
-     * En caso de éxito devuelve 0. En caso de error devuelve -1
      */
-    public int generarAlbaran() throws Exception {
+    public boolean generarAlbaran() throws Exception {
         if(albaran == null)
         {
-            return -1;
+            return false;
         }
         
         this.albaran.generar();
         albaran = null;
-        return 0;
+        return true;
     }
 
     /**
-     * Añade una unidad del producto con el código "codigo"
-     * del almacén al albarán
-     *
-     * En caso de éxito devuelve 0 En caso de error devuelve
-     * -1 => PRODUCTO NO ENCONTRADO, -2 => EXISTENCIAS INSUFICIENTES, 
-     * -3 => NO SITIO ALBARAN
+     * Añade una producto del almacén al albarán.
      */
     public int insertarProductoAlbaran(String codigo) {
-        int error = 0;
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] != null) {
                 if (productos[i].getCodigo().equals(codigo)) {
                     if (productos[i].modificarExistencias(-1)) {
                         if (albaran.insertarProducto(productos[i])) {
-                            return 0;
+                            return EXITO;
                         } else {
                             productos[i].modificarExistencias(1);
-                            return -3;
+                            return NO_SITIO_ALBARAN;
                         }
                     } else {
-                        return -2;
+                        return EXISTENCIAS_INSUFICIENTES;
                     }
                 }
             }
         }
-        return -1;
+        return PRODUCTO_NO_ENCONTRADO;
     }
 
     /**
-     * Añade un producto con el código "codigo" del albrán al almacén
-     *
-     * En caso de éxito devuelve 0. En caso de error devuelve
-     * -1 => PRODUCTO NO ENCONTRADO, -2 => ERROR AL MODIFICAR EXISTENCIAS, 
-     * -3 => ERROR FATAL (PRODUCTO ANOTADO EN EL ALBARÁN 
-     *                    QUE NO CONSTA EN EL ALMACÉN)
+     * Añade un producto del albarán al almacén.
      */
     public int eliminarProductoAlbaran(String codigo) {
         if (albaran.eliminarProducto(codigo)) {
@@ -130,16 +123,16 @@ public class Almacen {
                 if (productos[i] != null) {
                     if (productos[i].getCodigo().equals(codigo)) {
                         if (productos[i].modificarExistencias(1)) {
-                            return 0;
+                            return EXITO;
                         } else {
-                            return -2;
+                            return ERROR_MODIFICAR_EXISTENCIAS;
                         }
                     }
                 }
             }
-            return -3;
+            return ERROR_FATAL;
         } else {
-            return -1;
+            return PRODUCTO_NO_ENCONTRADO;
         }
     }
 }

@@ -11,21 +11,24 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.SimpleTimeZone;
 /**
  * Clase albaran
  */
 public class Albaran {
 
-    public static final int MAX_PRODUCTOS = 100;
+    public static final int MAX_PRODUCTOS = 10;
 
     private String codigo;
     private Producto[] productos;
     private String cliente;
-    private Date date = new Date();
-    private SimpleDateFormat fecha;
-    private final String patron = "E, dd MM yyyy h:mm";
+    private Calendar calendar = GregorianCalendar.getInstance();
+    private SimpleDateFormat formatoFecha = 
+            new SimpleDateFormat("dd/MMMMM/yyyy hh:mm:ss");
+    private String fecha;
+
 
     /**
      * Constructor de la clase albaran
@@ -37,11 +40,11 @@ public class Albaran {
             productos[i] = null;
         }
         this.cliente = cliente;
-        fecha = new SimpleDateFormat(patron);
+        fecha = formatoFecha.format(calendar.getTime());
     }
 
     /**
-     * Genera el albrarán con el nombre del mismo
+     * Genera el albarán con el nombre del mismo
      */
     public void generar() throws Exception {
         PrintWriter fichero = new PrintWriter(new BufferedWriter
@@ -49,7 +52,7 @@ public class Albaran {
 
         fichero.println("Numero de Albaran: " + codigo
                 + "                       Cliente: " + cliente
-                + "                       Fecha: " + fecha.format(date));
+                + "                       Fecha: " + fecha);
 
         for (int n = 0; n < MAX_PRODUCTOS; n++) {
             if (productos[n] != null) {

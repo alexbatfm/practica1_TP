@@ -1,3 +1,7 @@
-Numero de Albaran: a_01                       Cliente: Manuel
-
-Fecha: mar, 14 02 2023 12:33
+Numero de Albaran: a_01                       Cliente: Manuel                       Fecha: 15/febrero/2023 09:06:02
+1_ALGH Tornillo
+1_ALGH Tornillo
+1_ALGH Tornillo
+1_ALGH Tornillo
+2_ALGH Tuerca
+3_ALGH Martillo

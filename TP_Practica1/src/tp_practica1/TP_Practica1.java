@@ -16,11 +16,11 @@ public class TP_Practica1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Almacen a = new Almacen();
+        Almacen almacen = new Almacen();
         int codigoError = 0;
 
         try {
-            a.leerProductos("productos.txt");
+            almacen.leerProductos("productos.txt");
         } catch (Exception e) {
             System.out.println("Error de entrada salida "
                     + "al leer los productos");
@@ -28,27 +28,36 @@ public class TP_Practica1 {
         }
 
         try {
-            a.nuevoAlbaran("a_01", "Manuel");
-            for(int n = 0; n <= 30; n++)
-            {
-                if(a.insertarProductoAlbaran("1_ALGH") < 0){
-                    System.err.println("Error al introducir "
-                            + "producto al albaran");
-                }
-            }
-            if(a.insertarProductoAlbaran("2_ALGH") < 0){
+            almacen.nuevoAlbaran("a_01", "Manuel");
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if(a.insertarProductoAlbaran("2_ALGH") < 0){
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if(a.insertarProductoAlbaran("3_ALGH") < 0){
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
-            if(a.eliminarProductoAlbaran("2_ALGH") < 0){
+            if (almacen.insertarProductoAlbaran("1_ALGH") != Almacen.EXITO) {
+                System.err.println("Error al introducir "
+                        + "producto al albaran");
+            }
+            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
+                System.err.println("Error al introducir "
+                        + "producto al albaran");
+            }
+            if (almacen.insertarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
+                System.err.println("Error al introducir "
+                        + "producto al albaran");
+            }
+            if (almacen.insertarProductoAlbaran("3_ALGH") != Almacen.EXITO) {
+                System.err.println("Error al introducir "
+                        + "producto al albaran");
+            }
+            if (almacen.eliminarProductoAlbaran("2_ALGH") != Almacen.EXITO) {
                 System.err.println("Error al introducir "
                         + "producto al albaran");
             }
@@ -57,41 +66,41 @@ public class TP_Practica1 {
                     + "al crear un albaran");
             e.printStackTrace();
         }
-        
+
         try {
-            a.nuevoAlbaran("a_02", "Francisco");
+            almacen.nuevoAlbaran("a_02", "Francisco");
         } catch (Exception e) {
             System.out.println("Error de entrada salida "
                     + "al crear un albaran");
             e.printStackTrace();
         }
-        
+
         try {
-            a.generarAlbaran();
+            almacen.generarAlbaran();
         } catch (Exception e) {
             System.err.println("Error de entrada salida "
                     + "al generar el albaran");
             e.printStackTrace();
         }
-        
+
         try {
-            a.nuevoAlbaran("a_03", "Pepe");
+            almacen.nuevoAlbaran("a_03", "Pepe");
         } catch (Exception e) {
             System.out.println("Error de entrada salida "
                     + "al crear un albaran");
             e.printStackTrace();
         }
-        
+
         try {
-            a.generarAlbaran();
+            almacen.generarAlbaran();
         } catch (Exception e) {
             System.err.println("Error de entrada salida "
                     + "al generar el albaran");
             e.printStackTrace();
         }
-        
+
         try {
-            a.escribirProductos("CopiaProductos.txt");
+            almacen.escribirProductos("CopiaProductos.txt");
         } catch (Exception e) {
             System.out.println("Error de entrada salida "
                     + "al guardar los productos");
