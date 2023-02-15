@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class Almacen {
 
-    public static final int MAX_PRODUCTOS = 10000;
+    public static final int MAX_PRODUCTOS = 10;
 
     private Producto[] productos;
     private Albaran albaran;
@@ -35,14 +35,23 @@ public class Almacen {
      */
     void leerProductos(String nombreFichero) throws Exception {
         int n = 0;
-        Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
+        if(nombreFichero != null)
+        {
+            Scanner fichero = new Scanner(new FileInputStream(nombreFichero));
 
-        if (n != MAX_PRODUCTOS) {
-            while (fichero.hasNext()) {
-                productos[n++] = new Producto(fichero);
+            if (n != MAX_PRODUCTOS) {
+                try {
+                    while (fichero.hasNext()) {
+                        productos[n++] = new Producto(fichero);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al leer el producto " + n);
+                }
             }
+            fichero.close();
+        }else{
+            System.err.println("No se ha proporcionado un fichero");
         }
-        fichero.close();
     }
 
     /**

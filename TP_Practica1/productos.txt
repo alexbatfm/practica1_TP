@@ -1,5 +1,7 @@
 1_ALGH Tornillo 30
-2_ALGH Tuerca 70
-3_ALGH Martillo 10
-4_ALGH Destornillador 6
+
+2_ALGH 
+Tuerca
+70
+3_ALGH Martillo 10 4_ALGH Destornillador 6
 
