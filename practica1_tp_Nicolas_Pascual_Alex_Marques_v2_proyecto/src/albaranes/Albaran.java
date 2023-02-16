@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
@@ -20,14 +21,14 @@ public class Albaran {
 
     public static final int MAX_PRODUCTOS = 10;
     public static final String EXTENSION_FICHERO = ".txt"; 
+    public static final String FORMATO_FECHA = "dd/MMMMM/yyyy";
+    public static final String LINEA_ALBARAN_1 = "Albaran: ";
+    public static final String LINEA_ALBARAN_2 = "Cliente: ";
 
     private String codigo;
     private Producto[] productos;
     private String cliente;
-     private Calendar calendar = GregorianCalendar.getInstance();
-    private SimpleDateFormat formatoFecha = 
-            new SimpleDateFormat("dd/MMMMM/yyyy hh:mm:ss");
-    private String fecha;
+    private Calendar fecha;
 
     /**
      * Constructor de la clase albaran
@@ -35,23 +36,24 @@ public class Albaran {
     Albaran(String codigo, String cliente) {
         this.codigo = codigo;
         this.productos = new Producto[MAX_PRODUCTOS];
-        for (int i = 0; i < MAX_PRODUCTOS; i++) {
-            productos[i] = null;
-        }
+        Arrays.fill(productos, null);
         this.cliente = cliente;
-        fecha = formatoFecha.format(calendar.getTime());
+        fecha = GregorianCalendar.getInstance();
     }
 
     /**
      * Genera el albarán con el nombre del mismo
      */
     public void generar() throws Exception {
+        SimpleDateFormat formatoFecha = 
+            new SimpleDateFormat("dd/MMMMM/yyyy hh:mm:ss");
+        
         PrintWriter fichero = new PrintWriter(new BufferedWriter
                     (new FileWriter(codigo + EXTENSION_FICHERO)));
-
-        fichero.println("Numero de Albaran: " + codigo
-                + "                       Cliente: " + cliente
-                + "                       Fecha: " + fecha);
+        
+        fichero.println(LINEA_ALBARAN_1 + codigo);
+        fichero.println(LINEA_ALBARAN_2 + cliente);
+        fichero.println(formatoFecha.format(fecha.getTime()));
 
         for (int n = 0; n < MAX_PRODUCTOS; n++) {
             if (productos[n] != null) {

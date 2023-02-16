@@ -102,45 +102,56 @@ public class Almacen {
      * Añade una producto del almacén al albarán.
      */
     public int insertarProductoAlbaran(String codigo) {
-        int error = 0;
-        for (int i = 0; i < MAX_PRODUCTOS; i++) {
-            if (productos[i] != null) {
-                if (productos[i].getCodigo().equals(codigo)) {
-                    if (productos[i].aumentarExistencias(-1)) {
-                        if (albaran.insertarProducto(productos[i])) {
-                            return EXITO;
-                        } else {
-                            productos[i].aumentarExistencias(1);
-                            return NO_SITIO_ALBARAN;
-                        }
-                    } else {
-                        return EXISTENCIAS_INSUFICIENTES;
-                    }
-                }
+        Producto producto = null;
+        
+        for (int i = 0; i < MAX_PRODUCTOS; i++){
+            if (productos[i] != null && 
+                    productos[i].getCodigo().equals(codigo)){
+                producto = productos[i];
+                break;
             }
         }
-        return PRODUCTO_NO_ENCONTRADO;
+        
+        if (producto == null){
+            return PRODUCTO_NO_ENCONTRADO;
+        }
+        
+        if ( ! producto.disminuirExistencias(1)){
+            return EXISTENCIAS_INSUFICIENTES;
+        }
+        if (albaran.insertarProducto(producto)){
+            return EXITO;
+        }
+        producto.aumentarExistencias(1);
+        return NO_SITIO_ALBARAN;
     }
 
     /**
      * Añade un producto del albarán al almacén
      */
     public int eliminarProductoAlbaran(String codigo) {
-        if (albaran.eliminarProducto(codigo)) {
-            for (int i = 0; i < MAX_PRODUCTOS; i++) {
-                if (productos[i] != null) {
-                    if (productos[i].getCodigo().equals(codigo)) {
-                        if (productos[i].aumentarExistencias(1)) {
-                            return EXITO;
-                        } else {
-                            return ERROR_MODIFICAR_EXISTENCIAS;
-                        }
-                    }
-                }
-            }
-            return ERROR_FATAL;
-        } else {
+        Producto producto = null;
+        
+        if ( ! albaran.eliminarProducto(codigo)){
             return PRODUCTO_NO_ENCONTRADO;
+        }
+        
+        for (int i = 0; i < MAX_PRODUCTOS; i++){
+            if (productos[i] != null && 
+                    productos[i].getCodigo().equals(codigo)){
+                producto = productos[i];
+                break;
+            }
+        }
+        
+        if (producto == null){
+            return ERROR_FATAL;
+        }
+        
+        if (producto.aumentarExistencias(1)){
+            return EXITO;
+        } else {
+            return ERROR_MODIFICAR_EXISTENCIAS;
         }
     }
 }
