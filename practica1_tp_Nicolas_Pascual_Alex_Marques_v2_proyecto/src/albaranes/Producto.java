@@ -86,14 +86,7 @@ class Producto {
     /**
      * Devuelve el codigo del producto
      */
-    String getCodigo() {
+    String devuelveCodigo() {
         return this.codigo;
-    }
-
-    /**
-     * Devuelve las existencias del producto
-     */
-    int getExistencias() {
-        return this.existencias;
     }
 }

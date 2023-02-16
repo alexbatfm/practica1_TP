@@ -106,7 +106,7 @@ public class Almacen {
         
         for (int i = 0; i < MAX_PRODUCTOS; i++){
             if (productos[i] != null && 
-                    productos[i].getCodigo().equals(codigo)){
+                    productos[i].devuelveCodigo().equals(codigo)){
                 producto = productos[i];
                 break;
             }
@@ -138,7 +138,7 @@ public class Almacen {
         
         for (int i = 0; i < MAX_PRODUCTOS; i++){
             if (productos[i] != null && 
-                    productos[i].getCodigo().equals(codigo)){
+                    productos[i].devuelveCodigo().equals(codigo)){
                 producto = productos[i];
                 break;
             }

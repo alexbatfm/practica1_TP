@@ -87,7 +87,7 @@ public class Albaran {
     public boolean eliminarProducto(String codigo) {
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] != null){
-                if (productos[i].getCodigo().equals(codigo)){
+                if (productos[i].devuelveCodigo().equals(codigo)){
                     productos[i] = null;
                     return true;                    
                 }
