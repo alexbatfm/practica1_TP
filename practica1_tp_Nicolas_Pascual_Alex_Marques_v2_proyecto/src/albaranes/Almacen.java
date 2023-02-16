@@ -106,11 +106,11 @@ public class Almacen {
         for (int i = 0; i < MAX_PRODUCTOS; i++) {
             if (productos[i] != null) {
                 if (productos[i].getCodigo().equals(codigo)) {
-                    if (productos[i].modificarExistencias(-1)) {
+                    if (productos[i].aumentarExistencias(-1)) {
                         if (albaran.insertarProducto(productos[i])) {
                             return EXITO;
                         } else {
-                            productos[i].modificarExistencias(1);
+                            productos[i].aumentarExistencias(1);
                             return NO_SITIO_ALBARAN;
                         }
                     } else {
@@ -130,7 +130,7 @@ public class Almacen {
             for (int i = 0; i < MAX_PRODUCTOS; i++) {
                 if (productos[i] != null) {
                     if (productos[i].getCodigo().equals(codigo)) {
-                        if (productos[i].modificarExistencias(1)) {
+                        if (productos[i].aumentarExistencias(1)) {
                             return EXITO;
                         } else {
                             return ERROR_MODIFICAR_EXISTENCIAS;
